@@ -1,12 +1,10 @@
-const places = [
-    { name: 'eilat', hebrewName: 'אילת', id: 295277 },
-    { name: 'new-york', hebrewName: 'ניו יורק', id: 5128581 },
-    { name: 'london', hebrewName: 'לונדון', id: 2643744 },
-    { name: 'alaska', hebrewName: 'אלסקה', id: 5879092 }
-  ];
-const apiKey = '8ee633956bad6ae1965b557a94ecfcba';
+const HOT_TEMP = 30;
+const NICE_TEMP = 20;
 
+//This function gets the name of the city and itws id and updates the card according to the api answer
 async function setWeather(name, cityId){
+
+    const apiKey = '8ee633956bad6ae1965b557a94ecfcba';
     const url = `https://api.openweathermap.org/data/2.5/weather?id=${cityId}&appid=${apiKey}&lang=he&units=metric`;
     try {
         const response = await fetch(url);
@@ -33,14 +31,56 @@ async function setWeather(name, cityId){
     }
 }
 
+//This function add the 4 cards to th grid, its called just in the beginning
+function initFunction(places){
+    places.forEach(place => addToGrid(place.name, place.hebrewName));
+}
 
-function setWeatherForAll(){
+//This function adds a card dynamiclly to the grid
+function addToGrid(name, hebrewName){
+    let card = document.createElement('div');
+    card.className = 'card';
+    card.id = `card-${name}`;
+    card.innerHTML = `
+    <div class="place-description-icon">
+        <div class="place-and-description">
+            <h2>${hebrewName}</h2>
+            <span class = weather-description id="description-${name}">תיאור מזג האוויר</span>
+        </div>
+        <img class="icon" id="icon-${name}" src="" alt="Weather Icon" />
+    </div>
+    <div class="stats">
+        <div>
+            <p>טמפ' נמדדת</p>
+            <p id="temp-${name}">--°C</p>
+        </div>
+        <div>
+            <p>טמפ' מורגשת</p>
+            <p id="feels-like-${name}">--°C</p>
+        </div>
+        <div>
+            <p>לחות</p>
+            <p id="humidity-${name}">--%</p>
+        </div>
+    </div>`;
+    document.getElementById('weather-cards').appendChild(card);
+}
+
+//This function updates the weather on the 4 cards
+function setWeatherForAll(places){
+    console.log("sdfghjkbvcd,");
     places.forEach(place => setWeather(place.name, place.id));
 }
 
 window.onload = () => {
-    setWeatherForAll();
+    const places = [{ name: 'eilat', hebrewName: 'אילת', id: 295277 },
+        { name: 'new-york', hebrewName: 'ניו יורק', id: 5128581 },
+        { name: 'london', hebrewName: 'לונדון', id: 2643744 },
+        { name: 'alaska', hebrewName: 'אלסקה', id: 5879092 }];
+
+    initFunction(places);
+    setWeatherForAll(places);
     
     //every 15 minutes refresh the weather data
-    setInterval(setWeatherForAll, 900000);
-  };    
+    setInterval(() => setWeatherForAll(places), 900000);
+  };  
