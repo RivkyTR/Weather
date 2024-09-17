@@ -39,11 +39,22 @@ body {
     color: #333;
   }
 
+  .place-description-icon {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .place-and-description {
     display: flex;
     flex-direction: column;
   }
 
+  .icon {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+  }
+  
   .stats {
     display: flex;
     justify-content: space-between;
@@ -55,3 +66,5 @@ body {
     font-size: 14px;
     color: #200404;
   }
+
+  
