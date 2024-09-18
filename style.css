@@ -13,7 +13,6 @@ body {
   .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 40px;
     padding: 50px;
     width: 55%;
     height: 120%;
@@ -62,12 +61,10 @@ body {
   .stats {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
     text-align: center;
   }
 
   .stats p {
-    margin: 5px 0;
     font-size: 14px;
     color: #200404;
   }
